@@ -1,10 +1,15 @@
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
 export type llamaResponse = {
   response: string
   context: Array<string>
 }
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class OllamaService {
   // beautiful debug is beautiful
@@ -16,15 +21,15 @@ export class OllamaService {
   }
 
   async talkToLlama(message: string) {
+
     const body = {
       "stream": false,
       "model": "llama3.1",
-      "prompt": ""
+      "prompt": message.toString()
     }
-    body.prompt = message.toString()
 
-    const t = await lastValueFrom(this.http.post<llamaResponse>('http://localhost:11434/api/generate', body))
-    this.llamaChat = t.response
-    console.log(t)
+    const post = await lastValueFrom(this.http.post<llamaResponse>('http://localhost:11434/api/generate', body))
+    this.llamaChat = post.response
+    console.log(post)
   }
 }

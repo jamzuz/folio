@@ -4,7 +4,7 @@ import { OllamaService } from '../ollama.service';
 @Component({
   selector: 'app-front-page',
   standalone: true,
-  imports: [],
+  // imports: [],
   templateUrl: './front-page.component.html',
   styleUrl: './front-page.component.css'
 })
@@ -12,9 +12,10 @@ import { OllamaService } from '../ollama.service';
 export class FrontPageComponent {
   llamaSays: string = "Hello!";
   working: boolean = false;
+
   constructor(private llama: OllamaService) { }
 
-  ding(message: string) {
+  sendMessage(message: string) {
     this.working = true
     this.llama.talkToLlama(message).finally(() =>  {
       this.llamaSays = this.llama.llamaChat

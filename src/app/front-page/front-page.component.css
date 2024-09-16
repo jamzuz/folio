@@ -10,26 +10,30 @@
     align-content: center;
     align-items: center;
 }
-    .main-top {
-        max-width: 400px;
+
+.main-top {
+    max-width: 400px;
+    max-height: 800px;
+    overflow-y: scroll;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border: 5px solid #FFF;
+    border-bottom-color: #523ab3;
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
     }
 
-    .loader {
-        width: 48px;
-        height: 48px;
-        border: 5px solid #FFF;
-        border-bottom-color: #523ab3;
-        border-radius: 50%;
-        display: inline-block;
-        box-sizing: border-box;
-        animation: rotation 1s linear infinite;
-        }
-    
-        @keyframes rotation {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-        } 
+    100% {
+        transform: rotate(360deg);
+    }
+}

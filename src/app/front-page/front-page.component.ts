@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { OllamaService } from '../ollama.service';
-
+import { OllamaService } from '../services/ollama.service';
 @Component({
   selector: 'app-front-page',
   standalone: true,

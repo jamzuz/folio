@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Ollama } from 'ollama';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 export type llamaResponse = {
   response: string
+  done: boolean
   context: Array<string>
 }
 
@@ -12,24 +13,26 @@ export type llamaResponse = {
 })
 
 export class OllamaService {
-  // beautiful debug is beautiful
-  llamaChat: string = "dafasdfsa";
+  llamaChat = new BehaviorSubject<string>('');
   firstMessage: boolean = true;
+  ollama = new Ollama({ host: 'http://localhost:11434' })
 
-  constructor(private http: HttpClient) {
-
+  constructor() {
   }
 
   async talkToLlama(message: string) {
-
-    const body = {
-      "stream": false,
-      "model": "llama3.1",
-      "prompt": message.toString()
+    const response = await this.ollama.chat({
+      model: 'llama3.1',
+      stream: true,
+      messages: [{ role: 'user', content: message.toString() }]
+    })
+    for await (const part of response) {
+      this.llamaChat.next(part.message.content)
     }
+    this.llamaChat.next("")
+  }
 
-    const post = await lastValueFrom(this.http.post<llamaResponse>('http://localhost:11434/api/generate', body))
-    this.llamaChat = post.response
-    console.log(post)
+  getLlamaChat(): Observable<string> {
+    return this.llamaChat.asObservable()
   }
 }

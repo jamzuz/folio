@@ -1,6 +1,6 @@
 <div class="main">
     <h1>This is definitely not DnD</h1>
-    <div class="main-top" [hidden]=working>
+    <div class="main-top">
         {{llamaSays}}
     </div>
     <div class="main-top-spinner" [hidden]=!working>
@@ -8,6 +8,6 @@
     </div>
     <div class="main-bottom">
         <input value="ask away" #inputField type="text">
-        <button (click)="sendMessage(inputField.value)" type="submit">Send</button>
+        <button (click)="sendMessage(inputField.value)" [disabled]="working" type="submit">Send</button>
     </div>
 </div>

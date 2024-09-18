@@ -9,15 +9,19 @@ import { OllamaService } from '../services/ollama.service';
 })
 
 export class FrontPageComponent {
-  llamaSays: string = "Hello!";
+  llamaSays: string = "";
   working: boolean = false;
 
-  constructor(private llama: OllamaService) { }
+  constructor(private llama: OllamaService) {
+    this.llama.getLlamaChat().subscribe(llamaChat => {
+      this.llamaSays = this.llamaSays + llamaChat
+    })
+  }
 
   sendMessage(message: string) {
     this.working = true
-    this.llama.talkToLlama(message).finally(() =>  {
-      this.llamaSays = this.llama.llamaChat
+    this.llamaSays = ""
+    this.llama.talkToLlama(message).finally(() => {
       this.working = false
     })
   }

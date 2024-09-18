@@ -3,7 +3,6 @@ import { OllamaService } from '../services/ollama.service';
 @Component({
   selector: 'app-front-page',
   standalone: true,
-  // imports: [],
   templateUrl: './front-page.component.html',
   styleUrl: './front-page.component.css'
 })

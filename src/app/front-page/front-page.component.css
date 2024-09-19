@@ -4,18 +4,36 @@
     width: 100vw;
     gap: 30px;
     font-size: large;
-    background-color: rgb(39, 71, 99);
+    background-image: url(../assets/bg.jpg);
     flex-direction: column;
     justify-content: center;
     align-content: center;
     align-items: center;
 }
 
+.main-title {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 2px solid rgb(99, 64, 64);
+    border-radius: 10px;
+    background-color: #a8a894;
+    color: rgb(99, 64, 64);
+    padding: 10px;
+}
+
 .main-top {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     width: 900px;
     height: 200px;
+    border: 2px solid rgb(99, 64, 64);
+    border-radius: 10px;
+    background-color: #a8a894;
+    padding: 10px;
     overflow-y: scroll;
     scrollbar-width: none;
+}
+
+.main-bottom-input {
+    width: 350px;
 }
 
 .loader {

@@ -1,13 +1,16 @@
 <div class="main">
-    <h1>This is definitely not DnD</h1>
+    <h1 class="main-title">This is definitely not DnD</h1>
     <div class="main-top">
+
         {{llamaSays}}
+
     </div>
     <div class="main-top-spinner" [hidden]=!working>
         <span class="loader"></span>
     </div>
     <div class="main-bottom">
-        <input value="ask away" #inputField type="text">
-        <button (click)="sendMessage(inputField.value)" [disabled]="working" type="submit">Send</button>
+        <input placeholder="Start by saying hello to your virtual DM!" class="main-bottom-input" [(ngModel)]="message"
+            type="text">
+        <button (click)="sendMessage()" [disabled]="working" type="submit">Send</button>
     </div>
 </div>

@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
 import { OllamaService } from '../services/ollama.service';
+import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-front-page',
   standalone: true,
+  imports: [FormsModule],
   templateUrl: './front-page.component.html',
   styleUrl: './front-page.component.css'
 })
 
 export class FrontPageComponent {
   llamaSays: string = "";
+  message: string = ""
   working: boolean = false;
 
   constructor(private llama: OllamaService) {
@@ -17,11 +21,17 @@ export class FrontPageComponent {
     })
   }
 
-  sendMessage(message: string) {
+  sendMessage() {
     this.working = true
-    this.llamaSays = ""
-    this.llama.talkToLlama(message).finally(() => {
-      this.working = false
-    })
+    // this.llamaSays = ""
+    // push to old array ^
+    this.llama.talkToLlama(this.message)
+      .then(() => {
+        this.message = ""
+      })
+      .finally(() => {
+        this.llamaSays = this.llamaSays + "  "
+        this.working = false
+      })
   }
 }

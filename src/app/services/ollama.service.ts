@@ -7,19 +7,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class OllamaService {
   llamaChat = new BehaviorSubject<string>('');
-  firstMessage: boolean = true;
   ollama = new Ollama({ host: 'http://localhost:11434' });
 
   assistantMessages: Array<{ role: string; content: string }> = [];
 
-  assistantInstructions: string =  `You are a virtual Dungeon Master 
-  for this user. Guide the player through this journey. Remember to start with setting up the character and 
-  asking what kind of campaign would they like to play. Make sure there is some sort of combat involved and also 
-  enough roleplaying and adventuring. 
-  Dont confuse the player by giving them many questions at once, when possible ask one thing at a time!
-  Do not answer or react to non-game related questions and steer the user back to the game
-  if they try to talk about other things! 
-  Here comes the players first message: `
+  assistantInstructions: string = `You are a virtual Dungeon Master for this user. Guide the player through this journey. Remember to start with setting up the character and asking what kind of campaign would they like to play. Make sure there is some sort of combat involved and also enough roleplaying and adventuring. Dont confuse the player by giving them many questions at once, when possible ask one thing at a time! Do not answer or react to non-game related questions and steer the user back to the game if they try to talk about other things! If you want part of your output bolded or emphasized wrap it in <b> </b> tags. Here comes the players first message: `
 
   constructor() {
     const context = this.getFromLocalStorage();
@@ -27,9 +19,9 @@ export class OllamaService {
   }
 
   async talkToLlama(message: string) {
-    if (this.firstMessage) {
-      this.firstMessage = false
-      this.assistantMessages.push({role: 'user', content: this.assistantInstructions + message});
+    const assistantMessage = { role: 'assistant', content: "" }
+    if (!this.assistantMessages.length) {
+      this.assistantMessages.push({ role: 'user', content: this.assistantInstructions + message });
     } else {
       this.assistantMessages.push({ role: 'user', content: message });
     }
@@ -39,10 +31,12 @@ export class OllamaService {
       messages: this.assistantMessages,
     });
     for await (const part of response) {
-      this.llamaChat.next(part.message.content);
-      this.assistantMessages.push(part.message);
-      // #TODO: right now this pushes 1 word at a time into the array creating many objects, fix later.
+      const s = part.message.content
+      s.replaceAll("\n", "<br>")
+      this.llamaChat.next(s);
+      assistantMessage.content = assistantMessage.content + s
     }
+    this.assistantMessages.push(assistantMessage);
     this.pushToLocalStorage();
     this.llamaChat.next('');
   }
@@ -56,6 +50,17 @@ export class OllamaService {
       'ollamaContext',
       JSON.stringify(this.assistantMessages)
     );
+  }
+
+  getMessages() {
+    const messages = this.assistantMessages.map(message => message.content)
+    messages[0] = messages[0].split(":")[1]
+    messages.forEach(x=> {
+      x.replaceAll("\n", "<br>")
+      x.replaceAll("\n\n", "<br>")
+    })
+    messages[messages.length-1] = messages[messages.length-1] + " <br> ... end of chatlog ... <br>" 
+    return messages
   }
 
   getFromLocalStorage() {

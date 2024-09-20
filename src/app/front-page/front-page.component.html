@@ -1,16 +1,15 @@
 <div class="main">
     <h1 class="main-title">This is definitely not DnD</h1>
-    <div class="main-top">
-
-        {{llamaSays}}
-
+    <div #scrollContainer class="main-top">
+        <div class="main-top-chat" *ngFor="let chat of chatHistory" [innerHTML]=chat></div>
+        <div [hidden]="!working" class="main-top-chat-fake" [innerHTML]="llamaMessage"></div>
     </div>
     <div class="main-top-spinner" [hidden]=!working>
         <span class="loader"></span>
     </div>
     <div class="main-bottom">
-        <input placeholder="Start by saying hello to your virtual DM!" class="main-bottom-input" [(ngModel)]="message"
-            type="text">
+        <input [disabled]="working" (keyup.enter)="sendMessage()"  placeholder="Start by saying hello to your virtual DM!" class="main-bottom-input"
+            [(ngModel)]="message" type="text">
         <button (click)="sendMessage()" [disabled]="working" type="submit">Send</button>
     </div>
 </div>

@@ -8,8 +8,9 @@
         <span class="loader"></span>
     </div>
     <div class="main-bottom">
-        <input [disabled]="working" (keyup.enter)="sendMessage()"  placeholder="Start by saying hello to your virtual DM!" class="main-bottom-input"
-            [(ngModel)]="message" type="text">
+        <input [disabled]="working" (keyup.enter)="sendMessage()"
+            placeholder="Start by saying hello to your virtual DM!" class="main-bottom-input" [(ngModel)]="message"
+            type="text">
         <button (click)="sendMessage()" [disabled]="working" type="submit">Send</button>
     </div>
 </div>

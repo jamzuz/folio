@@ -4,7 +4,6 @@
     height: 50px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     position: absolute;
     z-index: 9999;
 }
@@ -13,7 +12,7 @@
     height: 50px;
     width: 85px;
     position: absolute;
-    left: 50%;
+    left: calc(50% - 42px);
 }
 .header-buttons {
     display: flex;

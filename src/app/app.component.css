@@ -1,4 +1,6 @@
 .main {
+    max-height: 100vh;
+    overflow: auto;
     display: grid;
     gap: 0px 0px;
     grid-template-areas:

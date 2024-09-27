@@ -1,7 +1,8 @@
 <div class="header">
     <div class="header-buttons">
         <div>
-            <a [routerLink]="['/character']">Character</a>
+            <a *ngIf="currentUrl() ==='/'" [routerLink]="['character']">Character</a>
+            <a *ngIf="currentUrl() ==='/character'" [routerLink]="['']">Game</a>
         </div>
         <div>
             <button (click)="reset()">
@@ -10,7 +11,4 @@
         </div>
     </div>
     <img class="header-logo" src="/dragon.svg" alt="">
-    <div>
-        search
-    </div>
 </div>

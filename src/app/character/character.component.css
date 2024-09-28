@@ -1,11 +1,3 @@
-/* .main {
-    display: flex;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background-color: #415A77;
-    color: white;
-}
 
 .main-bg {
     position: absolute;
@@ -13,208 +5,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: url(/test.jpg);
-    opacity: 20%;
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-}
-
-.main-container {
-    display: flex;
-    width: 100%;
-    height: 90%;
-    position: relative;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.main-container-form {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    margin-top: 5%;
-}
-
-.main-container-stats {
-    width: 100%;
-    text-transform: capitalize;
-    gap: 10px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: center;
-}
-
-.main-container-stats-display {
-    display: flex;
-    flex-direction: column;
-    justify-content: center
-}
-
-.main-container-stats-display-names {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.main-container-stats-display-names p {
-    width: 150px;
-}
-
-.main-container-stats-display-names-first {
-    display: flex;
-    justify-content: center;
-}
-
-.main-container-stats-display-values {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-
-}
-
-.main-container-stats-display-values input {
-    width: 30px;
-    height: 20px;
-    border-radius: 25px;
-    border: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-.main-container-stats-display-values p {
-    border-radius: 25px;
-    width: 30px;
-    height: 20px;
-    background-color: white;
-    color: black;
-    margin: 0px 30px;
-}
-
-.main-container-stats-display-values button {
-    background-color: #0D1B2A;
-    padding: 0px 5px;
-    margin: 0px 5px;
-    border-radius: 5px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: large;
-}
-
-.main-container-stats-display-values button:hover {
-    background-color: #415A77;
-    box-shadow: inset 0 0 10px #000000;
-}
-
-.main-container-stats-display-values button:disabled {
-    visibility: hidden;
-}
-
-.main-container-stats-display-values-container {
-    display: flex;
-    align-items: center;
-}
-
-.main-container-info {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-}
-
-.main-container-info-name {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main-container-info-dropdown {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    align-items: center;
-}
-
-.main-container-info select {
-    width: 200px;
-    border-radius: 25px;
-    height: 35px;
-
-    text-align: center;
-}
-
-.main-container-info input {
-    width: 200px;
-    height: 35px;
-    border-radius: 25px;
-    text-align: center;
-}
-
-.main-container-finish {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-direction: column;
-    text-align: center;
-}
-
-.main-container-finish p {
-    font-size: x-large;
-    margin: 0;
-    padding: 0;
-}
-
-.hide {
-    visibility: hidden;
-}
-
-.main-container-finish button {
-    all: unset;
-    font-size: large;
-    border-radius: 5px;
-    background-color: #0D1B2A;
-    border: none;
-    display: flex;
-    height: 50px;
-    width: 200px;
-    cursor: pointer;
-    color: white;
-    align-items: center;
-    justify-content: center;
-}
-
-.main-container-finish button:hover {
-    background-color: #415A77;
-    box-shadow: inset 0 0 10px #000000;
-}
-
-.main-container-finish button:disabled {
-    background-color: #3f4041;
-}
-
-input[type=number]::-webkit-inner-spin-button,
-input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-} */
-
-
-/* TRY AGAIN IDIOT */
-
-.main-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url(/dragon-bg-2.png);
+    background-image: url(/paper.jpg);
     opacity: 100%;
     background-size: cover;
     background-position: center;
@@ -223,6 +14,12 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 input {
+    padding: 0;
+    margin: 0px 5px;
+    width: 25px;
+    height: 25px;
+    border: none;
+    border-radius: 25px;
     text-align: center;
 }
 
@@ -270,7 +67,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .stats button {
     color: white;
-    background-color:  #0D1B2A;
+    background-color: #0D1B2A;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
 }
@@ -279,8 +77,25 @@ input[type=number]::-webkit-outer-spin-button {
     background-color: #415A77;
     box-shadow: inset 0 0 10px #000000;
 }
+
 .stats button:disabled {
     visibility: hidden;
+}
+
+.stats-modifier {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+.stats-modifier-value {
+    background-color: white;
+    color: black;
+    font-size: small;
+    align-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
 }
 
 .stat-1 {
@@ -364,18 +179,21 @@ input[type=number]::-webkit-outer-spin-button {
     height: 100%;
     align-items: center;
 }
+
 .dropdowns select {
     width: 200px;
     text-align: center;
     border-radius: 25px;
     height: 25px;
 }
+
 .dropdowns input {
     text-align: center;
     border-radius: 25px;
     height: 25px;
     width: 200px;
 }
+
 .dropdowns-name {
     grid-area: dropdowns-name;
 }
@@ -399,6 +217,7 @@ input[type=number]::-webkit-outer-spin-button {
         "finish-remaining"
         "finish-button";
     grid-area: finish;
+    align-items: center;
 }
 
 .finish-remaining {

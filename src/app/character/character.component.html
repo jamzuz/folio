@@ -1,97 +1,46 @@
-<!-- <div class="main">
-    <div class="main-bg"></div>
-    <div class="main-container">
-        <form class="main-container-form" [formGroup]="player" (ngSubmit)="onSubmit()">
-            <div class="main-container-stats">
-                <div class="main-container-stats-display" *ngFor="let stat of hero.stats | keyvalue first as isFirst">
-                    <div class="main-container-stats-display-names">
-                        <p>{{stat.key}}</p>
-                        <p class="main-container-stats-display-names-first" *ngIf="isFirst">modifier</p>
-                        <p class="hide" *ngIf="!isFirst">modifier</p>
-                    </div>
-                    <div class="main-container-stats-display-values">
-                        <div class="main-container-stats-display-values-container">
-                            <button [disabled]="player.get(stat.key)!.value === 8"  type="button" (click)="decrementNumber(stat.key)">&lt;</button>
-                            <input readonly min="8" max="15" type="number" [formControlName]="stat.key">
-                            <button [disabled]="isThereEnoughpoints(stat.key)" type="button" (click)="incrementNumber(stat.key)">&gt;</button>
-                        </div>
-
-                        <p>{{calcModifier(player.get(stat.key)!.value)}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="main-container-info">
-                <div class="main-container-info-name">
-                    <label for="name">Character Name:</label>
-                    <input type="text" id="name" formControlName="name" />
-                </div>
-                <div class="main-container-info-dropdown">
-                    <label for="class">Race:</label>
-                    <select id="race" formControlName="race">
-                        <option *ngFor="let race of races" [value]="race">{{ race }}</option>
-                    </select>
-                </div>
-                <div class="main-container-info-dropdown">
-                    <label for="class">Class:</label>
-                    <select id="class" formControlName="class">
-                        <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="main-container-finish">
-                <div [hidden]="finished">
-                    <p>Points</p>
-                    <p>{{points_left}}</p>
-                    <p>remaining</p>
-                </div>
-                <button [disabled]="finished" type="submit">Create character</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
-
-<!-- try again idiot -->
-
 <div class="main-bg"></div>
 <form action="" class="container" [formGroup]="player" (ngSubmit)="onSubmit()">
     <div class="stats">
-        <div *ngFor="let stat of hero.stats | keyvalue index as i" class="stat-{{i+1}}">
-            <div class="stat-{{i+1}}-value">
+        <div *ngFor="let stat of hero.stats | keyvalue; index as i; first as isFirst" class="stat-{{i+1}}">
+            <div>
                 <p>{{stat.key}}</p>
-                <button [disabled]="player.get(stat.key)!.value === 8"  type="button" (click)="decrementNumber(stat.key)">&lt;</button>
+                <button [disabled]="player.get(stat.key)!.value === 8 || finished" type="button"
+                    (click)="decrementNumber(stat.key)">&lt;</button>
                 <input readonly min="8" max="15" type="number" [formControlName]="stat.key">
-                <button [disabled]="isThereEnoughpoints(stat.key)" type="button" (click)="incrementNumber(stat.key)">&gt;</button>
+                <button [disabled]="isThereEnoughpoints(stat.key) || finished" type="button"
+                    (click)="incrementNumber(stat.key)">&gt;</button>
             </div>
-            <div class="stat-{{i+1}}-mod">
-                <p>{{calcModifier(player.get(stat.key)!.value)}}</p>
+            <div class="stats-modifier">
+                <p *ngIf="isFirst"> Modifier</p>
+                <p class="stats-modifier-value" style="margin: 0;">
+                    {{calcModifier(player.get(stat.key)!.value)}}</p>
             </div>
         </div>
     </div>
     <div class="dropdowns">
         <div class="dropdowns-name">
-            <div class="main-container-info">
-                <div class="main-container-info-name">
-                    <label for="name">Character Name:</label><br>
-                    <input type="text" id="name" formControlName="name" />
+            <div class="main-container-info-name">
+                <div>
+                    <label for="name">Character Name</label>
                 </div>
+                <input autocomplete="off" type="text" id="name" formControlName="name" />
             </div>
         </div>
         <div class="dropdowns-race">
-            <div class="main-container-info-dropdown">
-                <label for="class">Race:</label><br>
-                <select id="race" formControlName="race">
-                    <option *ngFor="let race of races" [value]="race">{{ race }}</option>
-                </select>
+            <div>
+                <label for="race">Race</label>
             </div>
+            <select id="race" formControlName="race">
+                <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+            </select>
         </div>
         <div class="dropdowns-class">
-            <div class="main-container-info-dropdown">
-                <label for="class">Class:</label><br>
-                <select id="class" formControlName="class">
-                    <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
-                </select>
+            <div>
+                <label for="class">Class</label>
             </div>
+            <select id="class" formControlName="class">
+                <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
+            </select>
         </div>
     </div>
     <div class="finish">
@@ -101,7 +50,8 @@
             <p>remaining</p>
         </div>
         <div class="finish-button">
-            <button [disabled]="finished" type="submit">Create character</button>
+            <button [disabled]="finished" [textContent]="finished ? 'Character created!' : 'Create character'"
+                type="submit"></button>
         </div>
     </div>
 </form>

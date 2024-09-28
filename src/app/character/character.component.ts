@@ -114,6 +114,7 @@ export class CharacterComponent implements OnInit {
     this.finished = true
   }
   calcModifier(val: number) {
-    return Math.floor((val - 10) / 2);
+    const mod = Math.floor((val - 10) / 2);
+    return mod > 0 ? "+" + mod : mod.toString();
   }
 }

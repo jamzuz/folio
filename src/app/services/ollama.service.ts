@@ -12,7 +12,7 @@ export class OllamaService {
   assistantMessages: Array<{ role: string; content: string }> = [];
 
   assistantInstructions: string = `
-  You are a virtual Dungeon Master for this user. 
+  You are a virtual Dungeon Master for this user.
   You will only ask one thing at a time before moving on to next thing.
   Remember to start with setting up the character;
   First ask the player their character name.
@@ -20,13 +20,13 @@ export class OllamaService {
   Third ask what class are they playing.
   after all this is come up with a high-fantasy custom homebrew campaign of your own creation with a random name, setting and world (not eldoria).
   incorporate various rolls and remember to keep everything turn based.
-  Make sure there is some sort of combat involved and also enough roleplaying and adventuring. 
+  Make sure there is some sort of combat involved and also enough roleplaying and adventuring.
   There is only one player in this campaign.
-  Do not answer or react to non-game related questions and steer the user back to the game if they try to talk about other things! 
-  If you want part of your output bolded or emphasized wrap it in <b> </b> tags. 
+  Do not answer or react to non-game related questions and steer the user back to the game if they try to talk about other things!
+  If you want part of your output bolded or emphasized wrap it in <b> </b> tags.
   Make sure every action the player takes is allowed in the current scope of the game.
   Please remember that player has specific abilities, strengths, and weaknesses as described in character stats. These limitations should be adhered to during our adventure encounters and roleplaying opportunities.
-  Here comes the players first message: `
+  Here comes the players first message: `;
 
   constructor() {
     const context = this.getFromLocalStorage();
@@ -34,9 +34,12 @@ export class OllamaService {
   }
 
   async talkToLlama(message: string) {
-    const assistantMessage = { role: 'assistant', content: "" }
+    const assistantMessage = { role: 'assistant', content: '' };
     if (!this.assistantMessages.length) {
-      this.assistantMessages.push({ role: 'user', content: this.assistantInstructions + localStorage.getItem('player_stats') });
+      this.assistantMessages.push({
+        role: 'user',
+        content: this.assistantInstructions + localStorage.getItem('player_stats'),
+      });
     } else {
       this.assistantMessages.push({ role: 'user', content: message });
     }
@@ -46,10 +49,10 @@ export class OllamaService {
       messages: this.assistantMessages,
     });
     for await (const part of response) {
-      const s = part.message.content
-      s.replaceAll("\n", "<br>")
+      const s = part.message.content;
+      s.replaceAll('\n', '<br>');
       this.llamaChat.next(s);
-      assistantMessage.content = assistantMessage.content + s
+      assistantMessage.content = assistantMessage.content + s;
     }
     this.assistantMessages.push(assistantMessage);
     this.pushToLocalStorage();
@@ -68,10 +71,13 @@ export class OllamaService {
   }
 
   getMessages() {
-    const messages = this.assistantMessages.map(message => message.content)
-    messages[0] = messages[0].split(":")[1]
-    messages[messages.length - 1] = messages[messages.length - 1] + " <br> ... end of chatlog ... <br>"
-    return messages
+    const messages = this.assistantMessages.map((message) => message.content);
+    console.log(messages);
+    if (!messages.length) return [];
+    messages[0] = messages[0].split(':')[1];
+    messages[messages.length - 1] =
+      messages[messages.length - 1] + ' <br> ... end of chatlog ... <br>';
+    return messages;
   }
 
   getFromLocalStorage() {
@@ -83,8 +89,28 @@ export class OllamaService {
     const context = localStorage.getItem('ollamaContext');
     const char = localStorage.getItem('player_stats')
     if (context || char) {
-      localStorage.clear()
-      location.reload()
+      localStorage.clear();
+      location.reload();
     }
   }
-}
+
+  async generateImagePrompt(prompt: string) {
+    const instructions = `
+  You are a master photographer who perfectly captures scenes to few sentences
+
+  Here is a imaginary scenery that you summarize:
+  Scene:
+  "
+  ${prompt}
+  "
+
+  Scene ends.
+
+Use the scenery to create text description for image generation. The description should be one sentence.`;
+    const response = await this.ollama.generate({
+      model: 'mistral',
+      prompt: instructions,
+    });
+    return response.response;
+  }
+

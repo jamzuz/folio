@@ -38,7 +38,7 @@ export class OllamaService {
     if (!this.assistantMessages.length) {
       this.assistantMessages.push({
         role: 'user',
-        content: this.assistantInstructions + message,
+        content: this.assistantInstructions + localStorage.getItem('player_stats'),
       });
     } else {
       this.assistantMessages.push({ role: 'user', content: message });
@@ -87,7 +87,8 @@ export class OllamaService {
 
   clearLocalStorage() {
     const context = localStorage.getItem('ollamaContext');
-    if (context) {
+    const char = localStorage.getItem('player_stats')
+    if (context || char) {
       localStorage.clear();
       location.reload();
     }
@@ -112,4 +113,4 @@ Use the scenery to create text description for image generation. The description
     });
     return response.response;
   }
-}
+

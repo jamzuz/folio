@@ -1,0 +1,57 @@
+<div class="main-bg"></div>
+<form action="" class="container" [formGroup]="player" (ngSubmit)="onSubmit()">
+    <div class="stats">
+        <div *ngFor="let stat of hero.stats | keyvalue; index as i; first as isFirst" class="stat-{{i+1}}">
+            <div>
+                <p>{{stat.key}}</p>
+                <button [disabled]="player.get(stat.key)!.value === 8 || finished" type="button"
+                    (click)="decrementNumber(stat.key)">&lt;</button>
+                <input readonly min="8" max="15" type="number" [formControlName]="stat.key">
+                <button [disabled]="isThereEnoughpoints(stat.key) || finished" type="button"
+                    (click)="incrementNumber(stat.key)">&gt;</button>
+            </div>
+            <div class="stats-modifier">
+                <p *ngIf="isFirst"> Modifier</p>
+                <p class="stats-modifier-value" style="margin: 0;">
+                    {{calcModifier(player.get(stat.key)!.value)}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="dropdowns">
+        <div class="dropdowns-name">
+            <div class="main-container-info-name">
+                <div>
+                    <label for="name">Character Name</label>
+                </div>
+                <input autocomplete="off" type="text" id="name" formControlName="name" />
+            </div>
+        </div>
+        <div class="dropdowns-race">
+            <div>
+                <label for="race">Race</label>
+            </div>
+            <select id="race" formControlName="race">
+                <option *ngFor="let race of races" [value]="race">{{ race }}</option>
+            </select>
+        </div>
+        <div class="dropdowns-class">
+            <div>
+                <label for="class">Class</label>
+            </div>
+            <select id="class" formControlName="class">
+                <option *ngFor="let class of classes" [value]="class">{{ class }}</option>
+            </select>
+        </div>
+    </div>
+    <div class="finish">
+        <div class="finish-remaining" [hidden]="finished">
+            <p>Points</p>
+            <p>{{points_left}}</p>
+            <p>remaining</p>
+        </div>
+        <div class="finish-button">
+            <button [disabled]="finished" [textContent]="finished ? 'Character created!' : 'Create character'"
+                type="submit"></button>
+        </div>
+    </div>
+</form>

@@ -1,8 +1,8 @@
-<div class="header">
+<div class="header" *ngIf="currentUrl() !== '/'">
     <div class="header-buttons">
         <div>
-            <app-button *ngIf="currentUrl() ==='/'" [routerLink]="['character']" text="Character" type="a" />
-            <app-button *ngIf="currentUrl() ==='/character'" [routerLink]="['']" text="Game" type="a" />
+            <app-button *ngIf="currentUrl() ==='/game'" [routerLink]="['character']" text="Character" type="a" />
+            <app-button *ngIf="currentUrl() ==='/character'" [routerLink]="['game']" text="Game" type="a" />
         </div>
         <div>
             <app-button text="Reset" (click)="reset()" />

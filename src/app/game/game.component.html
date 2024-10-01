@@ -1,0 +1,16 @@
+<div class="main">
+  <div class="background-image" [ngStyle]="{ 'background-image': 'url(' + image + ')' }"></div>
+  <div class="content-wrapper">
+    <div #scrollContainer class="main-top">
+      <div class="main-top-chat" *ngFor="let chat of chatHistory" [innerHTML]="chat"></div>
+      <div [hidden]="!working" class="main-top-chat-fake" [innerHTML]="llamaMessage"></div>
+    </div>
+    <div class="main-bottom">
+      <input [disabled]="working" (keyup.enter)="sendMessage()" placeholder="Start by saying hello to your virtual DM!"
+        class="main-bottom-input" [(ngModel)]="message" type="text" />
+      <button (click)="sendMessage()" [disabled]="working || !message" type="submit">
+        <img class="main-bottom-input-send" src="send.svg" alt="" />
+      </button>
+    </div>
+  </div>
+</div>

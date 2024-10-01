@@ -85,6 +85,13 @@ export class OllamaService {
     return context ? JSON.parse(context) : [];
   }
 
+  hasLocalStorage(): boolean {
+    if (localStorage.getItem('player_stats') || localStorage.getItem('ollamaContext')) {
+      return true
+    }
+    return false
+  }
+
   clearLocalStorage() {
     const context = localStorage.getItem('ollamaContext');
     const char = localStorage.getItem('player_stats')

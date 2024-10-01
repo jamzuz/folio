@@ -13,15 +13,15 @@ import { ButtonComponent } from '../button/button.component';
 })
 export class HeaderComponent {
 
-  constructor(private ollama: OllamaService, private router: Router){}
+  constructor(private ollama: OllamaService, private router: Router) { }
 
-  currentUrl():string{
+  currentUrl(): string {
     return this.router.url
   }
 
-  reset(){
+  reset() {
     const alert = confirm("This will erase all chat logs and restart the whole process, continue?")
-    if (alert == true){
+    if (alert == true) {
       this.ollama.clearLocalStorage()
     }
   }

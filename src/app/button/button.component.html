@@ -1,6 +1,6 @@
-<button *ngIf="type === 'button'">
+<button [ngStyle]="{width : width}" *ngIf="type === 'button'">
     {{text}}
 </button>
-<a *ngIf="type === 'a'">
+<a [ngStyle]="{width : width}"  *ngIf="type === 'a'">
     {{text}}
 </a>

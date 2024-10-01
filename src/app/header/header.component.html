@@ -1,13 +1,11 @@
 <div class="header">
     <div class="header-buttons">
         <div>
-            <a *ngIf="currentUrl() ==='/'" [routerLink]="['character']">Character</a>
-            <a *ngIf="currentUrl() ==='/character'" [routerLink]="['']">Game</a>
+            <app-button *ngIf="currentUrl() ==='/'" [routerLink]="['character']" text="Character" type="a" />
+            <app-button *ngIf="currentUrl() ==='/character'" [routerLink]="['']" text="Game" type="a" />
         </div>
         <div>
-            <button (click)="reset()">
-                Reset
-            </button>
+            <app-button text="Reset" (click)="reset()" />
         </div>
     </div>
     <img class="header-logo" src="/dragon.svg" alt="">

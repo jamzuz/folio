@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { OllamaService } from '../services/ollama.service';
 import { NgIf } from '@angular/common';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink, NgIf],
+  imports: [RouterLink, NgIf, ButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

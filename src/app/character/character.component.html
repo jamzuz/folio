@@ -12,6 +12,7 @@
             </div>
             <div class="stats-modifier">
                 <p *ngIf="isFirst"> Modifier</p>
+                <!-- #TODO: give ngclass disabled value for modifier -->
                 <p class="stats-modifier-value" style="margin: 0;">
                     {{calcModifier(player.get(stat.key)!.value)}}</p>
             </div>

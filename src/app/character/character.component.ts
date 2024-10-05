@@ -1,6 +1,7 @@
 import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-character',
@@ -29,6 +30,8 @@ export class CharacterComponent implements OnInit {
     }
   }
   finished: boolean = false
+
+  // #TODO: make this less complicated 
   point_buy_rules: { [key: string]: number } = {
     "8": 1,
     "9": 1,
@@ -41,7 +44,7 @@ export class CharacterComponent implements OnInit {
   }
   player: FormGroup
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
     this.player = new FormGroup({
       race: new FormControl(this.races[0]),
       name: new FormControl(this.hero.name),
@@ -56,9 +59,8 @@ export class CharacterComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    if (localStorage.getItem('player_stats')) {
-      this.player.setValue(JSON.parse(localStorage.getItem('player_stats')!))
+    if (this.localStorageService.hasLocalStorageItem('playerStats')) {
+      this.player.setValue(this.localStorageService.getFromLocalStorage('playerStats'))
       this.finished = true
       this.player.disable()
     }
@@ -106,13 +108,11 @@ export class CharacterComponent implements OnInit {
   }
 
   onSubmit() {
-    localStorage.setItem(
-      'player_stats',
-      JSON.stringify(this.player.value)
-    );
+    this.localStorageService.setLocalStorageItem('playerStats', this.player.value)
     this.player.disable()
     this.finished = true
   }
+
   calcModifier(val: number) {
     const mod = Math.floor((val - 10) / 2);
     return mod > 0 ? "+" + mod : mod.toString();

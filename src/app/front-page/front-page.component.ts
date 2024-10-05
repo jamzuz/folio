@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
 import { Router, RouterLink } from '@angular/router';
-import { OllamaService } from '../services/ollama.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 
 @Component({
@@ -13,8 +13,8 @@ import { OllamaService } from '../services/ollama.service';
 })
 export class FrontPageComponent {
 
-  constructor(private llama: OllamaService, private router: Router) {
-    if (this.llama.hasLocalStorage()) {
+  constructor(private localStorageService: LocalStorageService, private router: Router) {
+    if (this.localStorageService.hasLocalStorage()) {
       this.router.navigate(['/game'])
     }
   }

@@ -3,6 +3,7 @@ import { OllamaService } from '../services/ollama.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgFor } from '@angular/common';
 import { ImageService } from '../services/image.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-game',
@@ -22,7 +23,8 @@ export class GameComponent implements AfterViewInit {
 
   constructor(
     private llama: OllamaService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private localStorageService: LocalStorageService
   ) {
     this.llama.getLlamaChat().subscribe((llamaChat) => {
       this.llamaMessage = this.llamaMessage + llamaChat;
@@ -30,7 +32,7 @@ export class GameComponent implements AfterViewInit {
         this.scrollToBottom();
       }
     });
-    if (this.llama.getFromLocalStorage().length) {
+    if (this.localStorageService.getFromLocalStorage('ollamaContext').length) {
       this.chatHistory = this.llama.getMessages();
       console.log('data found from local storage, resuming chat');
     } else {

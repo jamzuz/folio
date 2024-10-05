@@ -11,7 +11,7 @@ export class LocalStorageService {
   constructor() { }
 
   hasLocalStorage(): boolean {
-    if (localStorage.getItem('player_stats') || localStorage.getItem('ollamaContext')) {
+    if (localStorage.getItem('playerStats') || localStorage.getItem('ollamaContext')) {
       return true
     }
     return false
@@ -25,12 +25,7 @@ export class LocalStorageService {
   }
 
   clearLocalStorage() {
-    const context = this.getFromLocalStorage('ollamaContext');
-    const char = this.getFromLocalStorage('playerStats');
-    if (context.length || char.length) {
-      localStorage.clear();
-      location.reload();
-    }
+    localStorage.clear();
   }
 
   getFromLocalStorage(key: LocalStorageKey) {

@@ -2,6 +2,7 @@ import { KeyValuePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LocalStorageService } from '../services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-character',
@@ -44,7 +45,7 @@ export class CharacterComponent implements OnInit {
   }
   player: FormGroup
 
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private localStorageService: LocalStorageService, private router: Router) {
     this.player = new FormGroup({
       race: new FormControl(this.races[0]),
       name: new FormControl(this.hero.name),
@@ -111,6 +112,9 @@ export class CharacterComponent implements OnInit {
     this.localStorageService.setLocalStorageItem('playerStats', this.player.value)
     this.player.disable()
     this.finished = true
+    setTimeout(() => {
+      this.router.navigate(['/game']);
+    }, 1000);
   }
 
   calcModifier(val: number) {

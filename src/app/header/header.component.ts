@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { OllamaService } from '../services/ollama.service';
 import { NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { LocalStorageService } from '../services/local-storage.service';
@@ -21,9 +20,17 @@ export class HeaderComponent {
   }
 
   reset() {
-    const alert = confirm("This will erase all chat logs and restart the whole process, continue?")
+    const alert = confirm("This will erase all chat logs, character data and restart the whole process, continue?")
     if (alert == true) {
       this.localStorageService.clearLocalStorage()
+      location.reload()
     }
+  }
+
+  canGame(): boolean {
+    if (this.localStorageService.hasLocalStorageItem('playerStats')) {
+      return true
+    }
+    return false
   }
 }

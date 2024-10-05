@@ -2,7 +2,9 @@
     <div class="header-buttons">
         <div>
             <app-button *ngIf="currentUrl() ==='/game'" [routerLink]="['character']" text="Character" type="a" />
-            <app-button *ngIf="currentUrl() ==='/character'" [routerLink]="['game']" text="Game" type="a" />
+            <!-- TODO: maybe find better way to check canGame -->
+            <app-button *ngIf="currentUrl() ==='/character' && canGame()" [routerLink]="['game']" text="Game"
+                type="a" />
         </div>
         <div>
             <app-button text="Reset" (click)="reset()" />

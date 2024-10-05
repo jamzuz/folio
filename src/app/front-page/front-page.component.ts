@@ -16,6 +16,8 @@ export class FrontPageComponent {
   constructor(private localStorageService: LocalStorageService, private router: Router) {
     if (this.localStorageService.hasLocalStorage()) {
       this.router.navigate(['/game'])
+    } else {
+      this.router.navigate(['/'])
     }
   }
 
